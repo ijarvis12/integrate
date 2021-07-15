@@ -40,7 +40,7 @@ try:
     _ = f(a)
 except:
     print("Bad function")
-    garbage = input("Press <Enter> to end program")
+    _ = input("Press <Enter> to end program")
     exit()
 
 # get ending value 'b'
