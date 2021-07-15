@@ -5,6 +5,7 @@
 ##                                               ##
 from time import time
 from math import *
+from decimal import Decimal
 
 print("")
 print("This program finds the integral of a function")
@@ -23,20 +24,20 @@ f = lambda x: eval(function)
 # get starting integration value 'a'
 a = input("Enter starting value a: ")
 
-# if starting value entered, attempt to make it a float, else exit
+# if starting value entered, attempt to make it a decimal object, else exit
 if len(a) > 0:
     try:
-        a = float(a)
+        a = Decimal(a)
     except:
         print("Bad input")
-        garbage = input("Press <Enter> to end program")
+        _ = input("Press <Enter> to end program")
         exit()
 else:
     exit()
 
 # attempt to evaluate the function at a, else exit
 try:
-    garbage = f(a)
+    _ = f(a)
 except:
     print("Bad function")
     garbage = input("Press <Enter> to end program")
@@ -45,13 +46,13 @@ except:
 # get ending value 'b'
 b = input("Enter ending value b: ")
 
-# if user input, attempt to make it a float, else exit
+# if user input, attempt to make it a decimal object, else exit
 if len(b) > 0:
     try:
-        b = float(b)
+        b = Decimal(b)
     except:
         print("Bad input")
-        garbage = input("Press <Enter> to end program")
+        _ = input("Press <Enter> to end program")
         exit()
 else:
     exit()
@@ -59,21 +60,21 @@ else:
 # get integration step value
 step = input("Enter step value: ")
 
-# if step value exists, attempt to make it a float and check if sane, else exit
+# if step value exists, attempt to make it a decimal object and check if sane, else exit
 if len(step) > 0:
     try:
-        step = float(step)
-        if step <= 0.0:
+        step = Decimal(step)
+        if step <= Decimal(0):
             print("Can't have zero or negative step!")
-            garbage = input("Press <Enter> to end program")
+            _ = input("Press <Enter> to end program")
             exit()
         if a+step == a:
             print("Step too small")
-            garbage = input("Press <Enter> to end program")
+            _ = input("Press <Enter> to end program")
             exit()
     except:
         print("Bad input")
-        garbage = input("Press <Enter> to end program")
+        _ = input("Press <Enter> to end program")
         exit()
 else:
     exit()
@@ -81,25 +82,25 @@ else:
 # check if 'a' is smaller than 'b' (can't integrate ending point first), else exit
 if a > b:
     print("a greater than b, not allowed")
-    garbage = input("Press <Enter> to end program")
+    _ = input("Press <Enter> to end program")
     exit()
 
 # check if step isn't too big, else exit
 if a+step > b:
     print("step is too big")
-    garbage = input("Press <Enter> to end program")
+    _ = input("Press <Enter> to end program")
     exit()
 
 # the following is an estimator for how long the program will run given all the inputs
 # variable 'r' is the range to use in the estimation
-if int((b-a)/step) < 100:
+if (b-a)/step < Decimal(100):
     r = range(int((b-a)/step))
 else:
     r = range(100)
 # iterate on 'x'. Save 'a' for use again on acutal integration
 x = a
 # integration area
-area = 0.0
+area = Decimal(0.0)
 # start time
 time1 = time()
 # integrate given range 'r' from above
@@ -122,4 +123,4 @@ while x <= b-step:
 
 # output result
 print("Integral of",function,"is:",area)
-garbage = input("Press <Enter> to end program")
+_ = input("Press <Enter> to end program")
